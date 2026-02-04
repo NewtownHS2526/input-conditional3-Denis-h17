@@ -23,9 +23,10 @@
 //   3. The status message area (id="status")
 // --------------------------------------------
 
-const textBox = 
-const outputBox = 
-const statusBox = 
+const textBox = document.querySelector("#user-input");
+const outputBox = document.querySelector("#quiz-outputs");
+const statusBox = document.querySelector("#status");
+
 
 // This console.log helps us verify our selections worked correctly.
 // Open the browser's Developer Tools (F12) to see the output.
@@ -59,9 +60,9 @@ let pluto = false;
 //   - if/else if/else: Checks multiple conditions in order
 // --------------------------------------------
 
-const checkAnswer = () => {
+const checkAnswer = () => {   
   // Get the current value from the text input
-  
+  const currentAnswer = textBox.value;
 
   // TODO: Create if/else if/else statements to check for each planet.
   // For each correct answer:
@@ -71,34 +72,43 @@ const checkAnswer = () => {
   //   - Display an error message in the statusBox
 
   if (currentAnswer === "Mercury") {
-
+    outputBox.innerHTML += `<h3>Mercury</h3><p>Mercury is the closest planet to the Sun and has a very thin atmosphere.</p>`;
+    score += 1;
   } else if (currentAnswer === "Venus") {
-
+    outputBox.innerHTML += `<h3>Venus</h3><p>Venus is the hottest planet in our solar system due to its thick atmosphere.</p>`;
+    score += 1;
   } else if (currentAnswer === "Earth") {
-
+    outputBox.innerHTML += `<h3>Earth</h3><p>Earth is the only planet known to support life.</p>`;
+    score += 1;
   } else if (currentAnswer === "Mars") {
-
+    outputBox.innerHTML += `<h3>Mars</h3><p>Mars is known as the Red Planet because of its iron oxide-rich soil.</p>`;
+    score += 1;
   } else if (currentAnswer === "Jupiter") {
-
+    outputBox.innerHTML += `<h3>Jupiter</h3><p>Jupiter is the largest planet in our solar system and has a giant storm called the Great Red Spot.</p>`;
+    score += 1;
   } else if (currentAnswer === "Saturn") {
-
+    outputBox.innerHTML += `<h3>Saturn</h3><p>Saturn is famous for its stunning ring system made of ice and rock particles.</p>`;
+    score += 1;
   } else if (currentAnswer === "Uranus") {
-
+    outputBox.innerHTML += `<h3>Uranus</h3><p>Uranus rotates on its side, making its seasons very extreme.</p>`;
+    score += 1;
   } else if (currentAnswer === "Neptune") {
-
+    outputBox.innerHTML += `<h3>Neptune</h3><p>Neptune is known for its deep blue color and strong winds, the fastest in the solar system.</p>`;
+    score += 1;
   } else if (currentAnswer === "Pluto") {
     // Secret bonus answer - Pluto was reclassified as a dwarf planet in 2006
-  
+    outputBox.innerHTML += `<h3>Pluto</h3><p>Pluto is a dwarf planet in the Kuiper belt and was once considered the ninth planet.</p>`;
+    pluto = true;
   } else {
     // If no conditions match, show an error message
-  
+    statusBox.innerHTML = `<p>Incorrect answer. Please try again!</p>`;
   }
 
   // After checking the answer, verify if the game is complete
   checkScore();
 
   // Reset the text box for the next answer
-  textBox.value = "";
+  textBox.value = " ";
 };
 
 // --------------------------------------------
@@ -115,13 +125,13 @@ const checkAnswer = () => {
 
 const checkScore = () => {
   if (score === 8) {
-   
+    statusBox.innerHTML = `<p>Congratulations! You've named all 8 planets!</p>`;  
   }
   if (score === 8 && pluto) {
-    
-    // Disable the text box since the game is complete
-    
+    statusBox.innerHTML = `<p>Congratulations! You've named all 8 planets and found the secret bonus planet Pluto!</p>`;
+    textBox.disabled = true;
   }
+  
 };
 
 // --------------------------------------------
@@ -142,3 +152,4 @@ const checkScore = () => {
 //   - Calls the checkAnswer function when triggered
 // --------------------------------------------
 
+textBox.addEventListener("change", checkAnswer);  
